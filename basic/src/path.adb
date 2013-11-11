@@ -1,6 +1,11 @@
 with Ada.Numerics.Generic_Elementary_Functions;
-with Adagraph; use Adagraph;
+with Adagraph;
+use Adagraph;
 package body Path is
+
+   -- Instanciation du package generique avec un type float
+   package My_Float is new Ada.Numerics.Generic_Elementary_Functions( Float ) ;
+   use My_Float ;
 
    function Value(From : in Points) return Object is
    begin
@@ -30,7 +35,7 @@ package body Path is
    function Segment_Count(Path: in Object) return Natural is (Path.Size - 1);
    function Segment_Length(Path : in Object; Segment: in Positive) return Float is
    begin
-      return 1.0;--Ada.Numerics.Generic_Elementary_Functions.Sqrt((Path.Values(Segment + 1).X - Path.Values(Segment).X)**2 + (Path.Values(Segment + 1).Y - Path.Values(Segment).Y)**2);
+      return Sqrt((Path.Values(Segment + 1).X - Path.Values(Segment).X)**2 + (Path.Values(Segment + 1).Y - Path.Values(Segment).Y)**2);
    end;
 
    procedure Draw(Path: in Object; Color: in Color_Type := Light_Green) is

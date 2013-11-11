@@ -2,7 +2,7 @@ with Path;
 with Ada.Text_Io;
 with Adagraph;
 with Robot;
-use Path,Adagraph;
+use Path,Adagraph,Ada.Text_IO;
 procedure Test_Path is
    Pa: Path.Object;
    P1,P2,P3,P4,P5: Path.Point;
@@ -30,8 +30,10 @@ begin
    Path.Add(Pa,P5);
 
     for P of Path.GetValues(Pa) loop
-	Ada.Text_IO.Put_Line(Float'Image(P.X));
+      Put_Line(Float'Image(P.X));
    end loop;
+
+   Put_Line(Float'Image(Path.Segment_Length(Pa,1)));
 
    Adagraph.Create_Sized_Graph_Window(800, 600, X_max, Y_Max, X_Char, Y_Char);
    Adagraph.Set_Window_Title("Hello from Ada");

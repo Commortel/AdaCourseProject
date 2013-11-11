@@ -1,12 +1,13 @@
 with Path;
 with Ada.Text_Io;
 with Adagraph;
+with Robot;
 use Path,Adagraph;
 procedure Test_Path is
    Pa: Path.Object;
    P1,P2,P3,P4,P5: Path.Point;
    X_Max, Y_Max: Integer; X_Char, Y_Char: Integer;
-   K : Float;
+   R: Robot.Object;
 begin
    Pa :=  Path.Null_Path;
    Ada.Text_Io.Put_Line ("Start Path Test");
@@ -18,9 +19,16 @@ begin
    P2.Y := 20.0;
    P3.X := 20.0;
    P3.Y := 100.0;
+   P4.X := 200.0;
+   P4.Y := 200.0;
+   P5.X := 10.0;
+   P5.Y := 599.0;
    Path.Add(Pa,P1);
    Path.Add(Pa,P2);
    Path.Add(Pa,P3);
+   Path.Add(Pa,P4);
+   Path.Add(Pa,P5);
+
     for P of Path.GetValues(Pa) loop
 	Ada.Text_IO.Put_Line(Float'Image(P.X));
    end loop;
@@ -29,27 +37,12 @@ begin
    Adagraph.Set_Window_Title("Hello from Ada");
    Adagraph.Clear_Window;
 
-
    Path.Draw(Path => Pa, Color => White);
 
    delay 1.0;
-   K := 0.0;
-   Ada.Text_IO.Put_Line(Integer'Image(Path.Segment_Count(Pa)));
-   for i in 1..Path.Segment_Count(Pa) loop
-      for j in 1..10 loop
-         Adagraph.Draw_Circle(
-                              Integer(Path.X(Pa,i,K)),
-                              Integer(Path.Y(Pa,i,K)),
-                              10, White, Fill);
-         delay 0.1;
-         Adagraph.Draw_Circle(
-                              Integer(Path.X(Pa,i,K)),
-                              Integer(Path.Y(Pa,i,K)),
-                              10, Black, Fill);
-         K := K + 0.1;
-      end loop;
-      K := 0.0;
-    end loop;
+
+   R.Follow(Pa);
+   R.Shutdown;
 
    delay 1.0;
 

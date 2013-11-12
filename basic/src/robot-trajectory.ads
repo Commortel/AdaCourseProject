@@ -1,18 +1,15 @@
 with Path, Robot;
 private package Robot.Trajectory is
-   type Object is private;
-   Route: Path.Object;
-   Speed: Float;
-   Segment: Positive;
-   K: Float;
+   type Object is tagged private;
 
    function GetRoute return Path.Object;
-   procedure Open(P: Path.Object; S: Speed);
+   procedure Open(P: Path.Object; S: Float);
    function X return Float;
    function Y return Float;
-   procedure Next(dt: Float);
+   procedure Next(dt: Duration);
    function At_End return Boolean;
    procedure Close;
 
-   private
+private
+   type Object is new Robot.Object;
 end;

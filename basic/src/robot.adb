@@ -1,4 +1,4 @@
-with Adagraph;
+with Adagraph, Robot.Trajectory;
 use Adagraph;
 package body Robot is
    task body Object is
@@ -7,24 +7,15 @@ package body Robot is
       dt: Duration := 0.05;
       dk: Float := 0.1;
       Radius: Integer := 10;
+      T: Robot.Trajectory.Object;
    begin
       while Needed loop
          select
             accept Follow (Pa: in Path.Object) do
-               for i in 1..Path.Segment_Count(Pa) loop
-                  for j in 1..Integer(1.0/dk) loop
-                     Adagraph.Draw_Circle(
-                              Integer(Path.X(Pa,i,K)),
-                              Integer(Path.Y(Pa,i,K)),
-                                          Radius, White, Fill);
-                     delay dt;
-                     Adagraph.Draw_Circle(
-                              Integer(Path.X(Pa,i,K)),
-                              Integer(Path.Y(Pa,i,K)),
-                                          Radius, Black, Fill);
-                     K := K + dK;
-                  end loop;
-                  K := 0.0;
+               Robot.Trajectory.Open(Pa,75.0);
+               while Robot.Trajectory.At_End loop
+
+                  Robot.Trajectory.Next(dt);
                end loop;
             end Follow;
          or accept Shutdown do

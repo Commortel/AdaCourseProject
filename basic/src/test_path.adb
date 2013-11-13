@@ -60,8 +60,8 @@ begin
 
    delay 1.0;
 
-   R1.Follow(Pa);
    R2.Follow(Pb);
+   R1.Follow(Pa);
    R1.Shutdown;
    R2.Shutdown;
 

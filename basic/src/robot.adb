@@ -2,11 +2,8 @@ with Adagraph, Robot.Trajectory;
 use Adagraph;
 package body Robot is
    task body Object is
-      K : Float := 0.0;
       Needed: Boolean := True;
       dt: Duration := 0.05;
-      dk: Float := 0.1;
-      Radius: Integer := 10;
    begin
       while Needed loop
          select

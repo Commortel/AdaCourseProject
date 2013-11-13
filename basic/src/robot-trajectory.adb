@@ -4,7 +4,6 @@ package body Robot.Trajectory is
    Speed: Float;
    Segment: Positive;
    K: Float := 0.0;
-   dt: Duration := 0.05;
    dk: Float := 0.0;
    Radius: Integer := 10;
 

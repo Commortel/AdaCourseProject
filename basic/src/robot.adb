@@ -7,14 +7,12 @@ package body Robot is
       dt: Duration := 0.05;
       dk: Float := 0.1;
       Radius: Integer := 10;
-      T: Robot.Trajectory.Object;
    begin
       while Needed loop
          select
             accept Follow (Pa: in Path.Object) do
                Robot.Trajectory.Open(Pa,75.0);
                while Robot.Trajectory.At_End loop
-
                   Robot.Trajectory.Next(dt);
                end loop;
             end Follow;

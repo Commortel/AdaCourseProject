@@ -11,5 +11,7 @@ private package Robot.Trajectory is
    procedure Close;
 
 private
-   type Object is new Robot.Object;
+   type Object is tagged record
+      Color:Color_Type;
+      end record;
 end;

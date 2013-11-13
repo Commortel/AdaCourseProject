@@ -1,7 +1,7 @@
 with Adagraph;
 package body Robot.Trajectory is
    Route: Path.Object;
-   Speed: Float := 75.0;
+   Speed: Float;
    Segment: Positive;
    K: Float := 0.0;
    dt: Duration := 0.05;
@@ -12,32 +12,31 @@ package body Robot.Trajectory is
    procedure Open(P: Path.Object; S: Float) is
    begin
       Route := P;
-      for i in 1..Path.Segment_Count(P) loop
-         Segment := i;
-         dk := (Speed/Path.Segment_Length(P,i))*Float(dt);
-         for j in 1..Integer(1.0/dk) loop
-            Adagraph.Draw_Circle(
-                                 Integer(Path.X(P,i,K)),
-                                 Integer(Path.Y(P,i,K)),
-                                 Radius, White, Fill);
-            delay dt;
-            Adagraph.Draw_Circle(
-                                 Integer(Path.X(P,i,K)),
-                                 Integer(Path.Y(P,i,K)),
-                                 Radius, Black, Fill);
-            K := K + dk;
-         end loop;
-         K := 0.0;
-      end loop;
+      Segment := 1;
+      Speed := S;
    end;
 
    function X return Float is (Path.X(Route,Segment,K));
    function Y return Float is (Path.Y(Route,Segment,K));
    procedure Next(dt: Duration) is
    begin
-      delay dt;
+      dk := (Speed/Path.Segment_Length(Route,Segment))*Float(dt);
+      for j in 1..Integer(1.0/dk) loop
+         Adagraph.Draw_Circle(
+                              Integer(X),
+                              Integer(Y),
+                              Radius, White, Fill);
+         delay dt;
+         Adagraph.Draw_Circle(
+                              Integer(X),
+                              Integer(Y),
+                              Radius, Black, Fill);
+         K := K + dk;
+      end loop;
+      K := 0.0;
+      Segment := Segment + 1;
    end;
-   function At_End return Boolean is (Boolean(Path.Segment_Count(Route) > Segment));
+   function At_End return Boolean is (Boolean(Path.Segment_Count(Route) >= Segment));
    procedure Close is
    begin
       null;

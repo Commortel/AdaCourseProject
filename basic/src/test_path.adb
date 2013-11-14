@@ -2,12 +2,36 @@ with Path;
 with Ada.Text_Io;
 with Adagraph;
 with Robot;
+with Ada.Numerics.Elementary_Functions;
+
+use Ada.Numerics.Elementary_Functions;
 use Path,Adagraph,Ada.Text_IO;
 procedure Test_Path is
    Pa,Pb: Path.Object;
    P1,P2,P3,P4,P5,P6,P7,P8,P9,P10: Path.Point;
    X_Max, Y_Max: Integer; X_Char, Y_Char: Integer;
    R1, R2: Robot.Object;
+
+   procedure Draw_Hexagone (X,Y,H,D: Integer) is
+      R: Integer := Integer(Cos(30.0,360.0)*Float(H));
+   begin
+      Adagraph.Draw_Line(X, Y - H - D, X + R - D, Y - H/2 - D);
+
+      Adagraph.Draw_Line(X - D + 3, Y + D - 3, X - D + 3, Y + H - D - 7);
+      Adagraph.Draw_Line(X - D + 3, Y + H - D - 7, X - R + D, Y + H/2);
+      Adagraph.Draw_Line(X - R + D, Y + H/2, X - D + 3, Y + D - 3);
+
+      Adagraph.Draw_Line(X + R, Y - H/2 + D, X + R, Y + H/2 - D);
+
+      Adagraph.Draw_Line(X - D, Y, X - R + D, Y + H/2 - D);
+      Adagraph.Draw_Line(X - R + D, Y + H/2 - D, X - R + D, Y - H/2 + D);
+      Adagraph.Draw_Line(X - R + D, Y - H/2 + D, X - D, Y);
+
+      Adagraph.Draw_Line(X + R - D, Y + H/2 + D, X, Y + H - D);
+      Adagraph.Draw_Line(X, Y + H - D, X - R + D, Y + H/2 + D);
+      Adagraph.Draw_Line(X - R, Y + H/2 - D, X - R, Y - H/2 + D);
+      Adagraph.Draw_Line(X - R + D, Y - H/2 - D, X, Y - H - D);
+   end;
 begin
    Pa :=  Path.Null_Path;
    Ada.Text_Io.Put_Line ("Start Path Test");
@@ -54,6 +78,9 @@ begin
    Adagraph.Create_Sized_Graph_Window(800, 600, X_max, Y_Max, X_Char, Y_Char);
    Adagraph.Set_Window_Title("Hello from Ada");
    Adagraph.Clear_Window;
+
+   Draw_Hexagone(400,300,200,15);
+   Adagraph.Draw_Circle(400,300,5);
 
    Path.Draw(Path => Pa, Color => White);
    Path.Draw(Path => Pb, Color => Blue);

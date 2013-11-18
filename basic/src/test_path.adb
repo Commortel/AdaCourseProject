@@ -7,15 +7,15 @@ with Ada.Numerics.Elementary_Functions;
 use Ada.Numerics.Elementary_Functions;
 use Path,Adagraph,Ada.Text_IO;
 procedure Test_Path is
-   Pa,Pb: Path.Object;
+   Pa,Pb, Pc: Path.Object;
    P1,P2,P3,P4,P5,P6,P7,P8,P9,P10: Path.Point;
    X_Max, Y_Max: Integer; X_Char, Y_Char: Integer;
-   R1, R2: Robot.Object;
+   R1, R2, R3: Robot.Object;
+   T: Path.Points := Path.Points'(0..100 => Path.Point'(0.0,0.0));
 
-   procedure Draw_Hexagone (X,Y,H,D: Integer) is
+   procedure Draw_Hexagone (X,Y,H,D: in Integer; T: in out Path.Points) is
 
       -- valeurs remarquables
-      R: Integer := Integer(Cos(30.0,360.0)*Float(H));
       L: Integer := Integer(Cos(30.0,360.0)*Float(D));
       C: Integer := Integer(Float(H)-2.0*Float(D)-Float(L));
 
@@ -65,6 +65,29 @@ procedure Test_Path is
       D6: Path.Point := Path.Point'(H6.X-Float(D),H6.Y);
       E6: Path.Point := Path.Point'(G6.X-Float(D),G6.Y);
 
+      -- points R, O et I
+
+
+      R2: Path.Point := Path.Point'(Float(X),Float(Y-L-C)- Float(D/2)*Tan(30.0,360.0) - Float(D)/(2.0*Cos(30.0,360.0)));
+      R5: Path.Point := Path.Point'(Float(X),Float(Y+L+C)+ Float(D/2)*Tan(30.0,360.0) + Float(D)/(2.0*Cos(30.0,360.0)));
+      R1: Path.Point := Path.Point'(Float(X)+ (Float(Y)-R2.Y)*Cos(30.0,360.0),Float(Y) - (Float(Y)-R2.Y)*Sin(30.0,360.0));
+      R3: Path.Point := Path.Point'(Float(X)- (Float(Y)-R2.Y)*Cos(30.0,360.0),Float(Y) - (Float(Y)-R2.Y)*Sin(30.0,360.0));
+      R4: Path.Point := Path.Point'(Float(X)- (Float(Y)-R2.Y)*Cos(30.0,360.0),Float(Y) + (Float(Y)-R2.Y)*Sin(30.0,360.0));
+      R6: Path.Point := Path.Point'(Float(X)+ (Float(Y)-R2.Y)*Cos(30.0,360.0),Float(Y) + (Float(Y)-R2.Y)*Sin(30.0,360.0));
+
+      O1: Path.Point := Path.Point'(R1.X + Float(D), R1.Y);
+      O2: Path.Point := Path.Point'(R2.X + Float(D)*Cos(45.0,360.0),R2.Y - Float(D)*Cos(45.0,360.0));
+      O3: Path.Point := Path.Point'(R3.X,R3.Y - Float(D));
+      O4: Path.Point := Path.Point'(R4.X - Float(D),R4.Y);
+      O5: Path.Point := Path.Point'(R5.X - Float(D)*Cos(45.0,360.0), R5.Y + Float(D)*Cos(45.0,360.0));
+      O6: Path.Point := Path.Point'(R6.X , R6.Y + Float(D));
+
+      I1: Path.Point := Path.Point'(R1.X, R1.Y - Float(D));
+      I2: Path.Point := Path.Point'(R2.X - Float(D)*Cos(45.0,360.0), R2.Y - Float(D)*Cos(45.0,360.0));
+      I3: Path.Point := Path.Point'(R3.X - Float(D), R3.Y);
+      I4: Path.Point := Path.Point'(R4.X, R4.Y + Float(D));
+      I5: Path.Point := Path.Point'(R5.X + Float(D)*Cos(45.0,360.0), R5.Y + Float(D)*Cos(45.0,360.0));
+      I6: Path.Point := Path.Point'(R6.X + Float(D), R6.Y);
 
    begin
       Adagraph.Draw_Line(Integer(F1.X), Integer(F1.Y), Integer(G1.X), Integer(G1.Y));
@@ -98,6 +121,50 @@ procedure Test_Path is
       Adagraph.Draw_Line(Integer(D5.X), Integer(D5.Y), Integer(E5.X), Integer(E5.Y));
       Adagraph.Draw_Line(Integer(D6.X), Integer(D6.Y), Integer(E6.X), Integer(E6.Y));
 
+      Adagraph.Draw_Circle(Integer(R2.X), Integer(R2.Y),5);
+      Adagraph.Draw_Circle(Integer(R5.X), Integer(R5.Y),5);
+      Adagraph.Draw_Circle(Integer(R1.X), Integer(R1.Y),5);
+      Adagraph.Draw_Circle(Integer(R2.X), Integer(R2.Y),5);
+      Adagraph.Draw_Circle(Integer(R3.X), Integer(R3.Y),5);
+      Adagraph.Draw_Circle(Integer(R4.X), Integer(R4.Y),5);
+      Adagraph.Draw_Circle(Integer(R6.X), Integer(R6.Y),5);
+
+      Adagraph.Draw_Circle(Integer(O2.X), Integer(O2.Y),5);
+      Adagraph.Draw_Circle(Integer(O5.X), Integer(O5.Y),5);
+      Adagraph.Draw_Circle(Integer(O1.X), Integer(O1.Y),5);
+      Adagraph.Draw_Circle(Integer(O2.X), Integer(O2.Y),5);
+      Adagraph.Draw_Circle(Integer(O3.X), Integer(O3.Y),5);
+      Adagraph.Draw_Circle(Integer(O4.X), Integer(O4.Y),5);
+      Adagraph.Draw_Circle(Integer(O6.X), Integer(O6.Y),5);
+
+      Adagraph.Draw_Circle(Integer(I2.X), Integer(I2.Y),5);
+      Adagraph.Draw_Circle(Integer(I5.X), Integer(I5.Y),5);
+      Adagraph.Draw_Circle(Integer(I1.X), Integer(I1.Y),5);
+      Adagraph.Draw_Circle(Integer(I2.X), Integer(I2.Y),5);
+      Adagraph.Draw_Circle(Integer(I3.X), Integer(I3.Y),5);
+      Adagraph.Draw_Circle(Integer(I4.X), Integer(I4.Y),5);
+      Adagraph.Draw_Circle(Integer(I6.X), Integer(I6.Y),5);
+
+      T(0) := R1;
+      T(1) := R2;
+      T(2) := R3;
+      T(3) := R4;
+      T(4) := R5;
+      T(5) := R6;
+
+      T(6) := O1;
+      T(7) := O2;
+      T(8) := O3;
+      T(9) := O4;
+      T(10) := O5;
+      T(11) := O6;
+
+      T(12) := I1;
+      T(13) := I2;
+      T(14) := I3;
+      T(15) := I4;
+      T(16) := I5;
+      T(17) := I6;
    end;
 begin
    Pa :=  Path.Null_Path;
@@ -146,18 +213,26 @@ begin
    Adagraph.Set_Window_Title("Hello from Ada");
    Adagraph.Clear_Window;
 
-   Draw_Hexagone(400,300,300,30);
-   --Adagraph.Draw_Circle(400,300,5);
+   Draw_Hexagone(400,300,300,50, T);
 
-   Path.Draw(Path => Pa, Color => White);
-   --Path.Draw(Path => Pb, Color => Blue);
+   Path.Add(Pc,T(14));
+   Path.Add(Pc,T(2));
+   Path.Add(Pc,Path.Point'(400.0, 300.0));
+   Path.Add(Pc,T(5));
+   Path.Add(Pc,T(11));
+
+--     Path.Draw(Path => Pa, Color => White);
+--Path.Draw(Path => Pb, Color => Blue);
+Path.Draw(Path => Pc, Color => Blue);
 
    delay 1.0;
 
    --R2.Follow(Pb);
-   R1.Follow(Pa);
-   R1.Shutdown;
-   --R2.Shutdown;
+   --     R1.Follow(Pa);
+   --     R1.Shutdown;
+--     R2.Shutdown;
+   R3.Follow(Pc);
+   R3.Shutdown;
 
    delay 1.0;
 

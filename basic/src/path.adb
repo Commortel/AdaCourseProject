@@ -4,8 +4,8 @@ use Adagraph;
 package body Path is
 
    -- Instanciation du package generique avec un type float
-   package My_Float is new Ada.Numerics.Generic_Elementary_Functions( Float ) ;
-   use My_Float ;
+   package ANGEF is new Ada.Numerics.Generic_Elementary_Functions( Float ) ;
+   use ANGEF ;
 
    function Value(From : in Points) return Object is
    begin

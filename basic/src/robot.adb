@@ -11,7 +11,7 @@ package body Robot is
             --accept Follow (P: in Path.Object) do
                --Robot.Trajectory.Open(T,P,75.0);
             accept Follow (From: in Site.Input_Places; To: in Site.Output_Places) do
-               Robot.Trajectory.Open(T,From,To,75.0);
+               Robot.Trajectory.Open(T,	From,To,75.0);
             end Follow;
             while Robot.Trajectory.At_End(T) loop
                Robot.Trajectory.Next(T,dt);

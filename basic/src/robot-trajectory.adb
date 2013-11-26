@@ -5,10 +5,10 @@ package body Robot.Trajectory is
    Radius: Integer := 5;
 
    function GetRoute return Path.Object is (Route);
-   procedure Open(T: in out Object; P: in Path.Object; S: in Float) is
+   procedure Open(T: in out Object; From: in Site.Input_Places; To: in Site.Output_Places; S: in Float) is
    begin
-      Site.Safely.Draw_Path(P);
-      T.Route := P;
+      T.Route := Site.Create_Path(From, To);
+      Site.Safely.Draw_Path(T.Route);
       T.Segment := 1;
       T.Speed := S;
    end;

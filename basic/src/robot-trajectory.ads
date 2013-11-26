@@ -3,8 +3,8 @@ private package Robot.Trajectory is
    type Object is tagged private;
 
    function GetRoute return Path.Object;
-   --procedure Open(T: in out Object; From: in Site.Input_Places; To: in Site.Output_Places; S: in Float);
-    procedure Open(T: in out Object; P: in Path.Object; S: in Float);
+   procedure Open(T: in out Object; From: in Site.Input_Places; To: in Site.Output_Places; S: in Float);
+   --procedure Open(T: in out Object; P: in Path.Object; S: in Float);
    function X(T: in Object) return Float;
    function Y(T: in Object) return Float;
    procedure Next(T: in out Object; dt: in Duration);

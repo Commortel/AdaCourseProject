@@ -1,4 +1,4 @@
-with Adagraph, Path, Robot;
+with Adagraph, Path;
 use Adagraph;
 package Site is
    type Place_Names is (I1, I2, I3, I4, I5, I6, O1, O2, O3, O4, O5, O6, R1, R2, R3, R4, R5, R6, C);
@@ -22,7 +22,7 @@ package Site is
       procedure Draw_Site;
       procedure Draw_Path(P: in Path.Object; Color: in Color_Type := Light_Green);
       procedure Draw_Robot(P: in Path.Point; Color: in Color_Type := Light_Green);
-      procedure Hide_Robot(R: in Robot.Object);
+      procedure Hide_Robot(P: in Path.Point);
    end;
 
 end Site;

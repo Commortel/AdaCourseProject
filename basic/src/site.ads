@@ -6,7 +6,7 @@ package Site is
    subtype Input_Places is Place_Names range I1..I6;
    subtype Output_Places is Place_Names range O1..O6;
    subtype Center_Place is Place_Names range C..C;
-   type T_Place is mod 19;
+   type T_Place is mod 18;
 
    function Way_In(To: in Input_Places) return Ring_Places;
    function Next(To: in Ring_Places) return Ring_Places;

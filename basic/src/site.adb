@@ -20,12 +20,20 @@ package body Site is
    function Next(To: in Ring_Places) return Ring_Places is
       N: T_Place := Place_Names'Pos(To) + 1;
    begin
-      return Place_Names'Val(Integer(N) + 12);
+      if N = Place_Names'Pos(Site.R6) + 1 then
+         return Site.R1;
+      else
+         return Place_Names'Val(Integer(N));
+      end if;
    end;
    function Previous(To: in Ring_Places) return Ring_Places is
       N: T_Place := Place_Names'Pos(To) - 1;
    begin
-      return Place_Names'Val(Integer(N) + 12);
+      if N = Place_Names'Pos(Site.R1) - 1 then
+         return Site.R6;
+      else
+         return Place_Names'Val(Integer(N));
+      end if;
    end;
    function Way_Out(To: in Output_Places) return Ring_Places is
    begin
@@ -34,28 +42,30 @@ package body Site is
    function Opposite(To: in Ring_Places) return Ring_Places is
       N: T_Place := Ring_Places'Pos(To) + 3;
    begin
+      if N < 12 then
+         N := N + 12;
+      end if;
+
       return Ring_Places'Val(Integer(N));
    end;
    function Create_Path(From: in Input_Places; To: in Output_Places) return Path.Object is
       P: Path.Object;
-      N: T_Place := 0;
+      type Test is mod 6;
+      T : Test := 0;
+      JI : Integer := Input_Places'Pos(From);
+      JO : Integer := Output_Places'Pos(To) - 6;
    begin
       Path.Add(P, Site.GetPointWithPlace(From));
       Path.Add(P, Site.GetPointWithPlace(Site.Way_In(From)));
 
---        if Input_Places'Pos(From) > Output_Places'Pos(To) then
---           N := Input_Places'Pos(From) - Output_Places'Pos(To);
---           for i in 1..Integer(N) loop
---              Put_Line(Ring_Places'Image(Ring_Places'Val(Input_Places'Pos(From) - i)));
---              Path.Add(Path => P,P => TRi(Input_Places'Pos(From) - i));
---           end loop;
---        else
---           N := Output_Places'Pos(To) - Input_Places'Pos(From);
---           for i in 1..Integer(N) loop
---              Put_Line(Ring_Places'Image(Ring_Places'Val(Input_Places'Pos(From) + i)));
---              Path.Add(Path => P,P => TRi(Input_Places'Pos(From) + i));
---           end loop;
---        end if;
+      T := Test(JI) - Test(JO);
+
+      case T is
+         when 2 =>  Path.Add(P, Site.GetPointWithPlace(Site.Previous(Site.Way_In(From))));
+         when 3 =>  Path.Add(P, Site.GetPointWithPlace(Site.C));
+         when 4 =>  Path.Add(P, Site.GetPointWithPlace(Site.Next(Site.Way_In(From))));
+         when others  => null;
+      end case;
 
       Path.Add(P, Site.GetPointWithPlace(Site.Way_Out(To)));
       Path.Add(P, Site.GetPointWithPlace(To));

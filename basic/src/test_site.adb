@@ -12,6 +12,8 @@ procedure Test_Site is
    subtype Place is Integer range 0..5;
    package Random_Die is new Ada.Numerics.Discrete_Random (Place);
    use Random_Die;
+   package Pool is new Generic_Ressource_Pool(Ressource_Id => Site.Place_Names);
+   P: Pool.Object(18);
    G : Generator;
    PR, PI, PO: Place;
 begin

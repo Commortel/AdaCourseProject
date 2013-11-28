@@ -14,45 +14,41 @@ package body Site is
 
    function Way_In(To: in Input_Places) return Ring_Places is
    begin
-      return Place_Names'Val(Place_Names'Pos(To) + 12);
+      return Place_Names'Val(Place_Names'Pos(To) + 6);
    end;
    function Next(To: in Ring_Places) return Ring_Places is
-      N: T_Place := Place_Names'Pos(To) + 1;
    begin
-      if N = Place_Names'Pos(Site.R6) + 1 then
+      if Place_Names'Pos(To) = Place_Names'Pos(Site.R6) then
          return Site.R1;
       else
-         return Place_Names'Val(Integer(N));
+         return Place_Names'Val(Integer(Place_Names'Pos(To)) + 1);
       end if;
    end;
    function Previous(To: in Ring_Places) return Ring_Places is
-      N: T_Place := Place_Names'Pos(To) - 1;
    begin
-      if N = Place_Names'Pos(Site.R1) - 1 then
+      if Place_Names'Pos(To) = Place_Names'Pos(Site.R1) then
          return Site.R6;
       else
-         return Place_Names'Val(Integer(N));
+         return Place_Names'Val(Integer(Place_Names'Pos(To)) - 1);
       end if;
    end;
    function Way_Out(To: in Output_Places) return Ring_Places is
    begin
-      return Place_Names'Val(Place_Names'Pos(To) + 6);
+      return Place_Names'Val(Place_Names'Pos(To) - 6);
    end;
    function Opposite(To: in Ring_Places) return Ring_Places is
-      N: T_Place := Ring_Places'Pos(To) + 3;
    begin
-      if N < 12 then
-         N := N + 12;
+      if Ring_Places'Pos(To) + 3 > 12 then
+         return Ring_Places'Val(Integer(Ring_Places'Pos(To) + 3 - 12 + 6));
       end if;
-
-      return Ring_Places'Val(Integer(N));
+      return Ring_Places'Val(Integer(Ring_Places'Pos(To) + 3));
    end;
    function Create_Path(From: in Input_Places; To: in Output_Places) return Path.Object is
       P: Path.Object;
       type Test is mod 6;
       T : Test := 0;
       JI : Integer := Input_Places'Pos(From);
-      JO : Integer := Output_Places'Pos(To) - 6;
+      JO : Integer := Output_Places'Pos(To) - 12;
    begin
       Path.Add(P, Site.GetPointWithPlace(From));
       Path.Add(P, Site.GetPointWithPlace(Site.Way_In(From)));

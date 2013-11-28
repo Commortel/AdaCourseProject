@@ -6,16 +6,15 @@ package Generic_Ressource_Pool is
       entry Acquire;
       procedure Release;
    private
-      Count: Boolean := True;
+      Count: Boolean := False;
    end;
-   type Request_Map is array(0..6) of Ressource_Id;
-   type Safe_Access is access all Ressource;
-   function S return Safe_Access;
+   type Request_Map is array(Natural range<>) of Ressource_Id;
 
-   procedure Acquire(Obj: in Object; R: in Request_Map);
-   procedure Acquire(Obj: in Object; R: in Ressource_Id);
-   procedure Release(Obj: in Object; R: in Request_Map);
-   procedure Release(Obj: in Object; R: in Ressource_Id);
+   procedure Acquire(Obj: in out Object; R: in Request_Map);
+   procedure Acquire(Obj: in out Object; R: in Ressource_Id);
+   procedure Release(Obj: in out Object; R: in Request_Map);
+   procedure Release(Obj: in out Object; R: in Ressource_Id);
+   procedure Tri(R: in out Request_Map);
 private
    type Elements is array(Integer range<>) of Ressource;
    type Object(Size: Positive) is record

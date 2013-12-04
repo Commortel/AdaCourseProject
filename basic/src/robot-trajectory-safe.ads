@@ -1,13 +1,20 @@
-private package Robot.Trajectory.Safe is
-   type Object is tagged private;
+with Generic_Ressource_Pool, Site.Place_Path;
+package Robot.Trajectory.Safe is
+   type T_Safe is new Robot.Trajectory.Object with private;
+   package Ressources is new Generic_Ressource_Pool(Ressource_Id => Site.Place_Names);
+   Pool: Ressources.Object(18);
 
-   procedure Open(S: in out Object; From: in Site.Input_Places; To: in Site.Output_Places);
-   procedure Next(S: in out Object);
-   procedure Close(S: in Object);
+   overriding
+   procedure Open(T: in out T_Safe; From: in Site.Input_Places; To: in Site.Output_Places;  S: in Float);
+   procedure Next(T: in out T_Safe);
+   overriding
+   procedure Close(T: in T_Safe);
 
 private
    type Elements is array(Natural range<>) of Site.Place_Names;
-   type Object is tagged record
-      Path: Elements;
+   type T_Safe is new Robot.Trajectory.Object with record
+      From: Site.Input_Places;
+      To: Site.Output_Places;
+      --RM : Ressources.Request_Map();
    end record;
 end;

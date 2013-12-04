@@ -17,7 +17,9 @@ package body Generic_Ressource_Pool is
    begin
       Tri(R);
       for E of R loop
-         Acquire(Obj,E);--.Ressources(Integer(Ressource_Id'Pos(E))).Acquire;
+         --if E in Ressource_Id then
+            Acquire(Obj,E);--.Ressources(Integer(Ressource_Id'Pos(E))).Acquire;
+         --end if;
       end loop;
    end;
    procedure Acquire(Obj: in out Object; R: in Ressource_Id) is

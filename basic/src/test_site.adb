@@ -16,8 +16,8 @@ procedure Test_Site is
    P: Pool.Object(18);
    G : Generator;
    PR, PI, PO: Place;
-   RM : Pool.Request_Map(0..3);
-   RM2 : Pool.Request_Map(0..4);
+--     RM : Pool.Request_Map(0..3);
+--     RM2 : Pool.Request_Map(0..4);
 begin
    Reset(G);
 
@@ -29,16 +29,16 @@ begin
 
    Ada.Text_IO.Put_Line(Site.Place_Names'Image(Site.Next(Site.Way_In(Site.I1))));
 
-   RM(0) := Site.I2;
-   RM(1) := Site.R2;
-   RM(2) := Site.R1;
-   RM(3) := Site.O1;
-
-   RM2(0) := Site.I6;
-   RM2(1) := Site.R6;
-   RM2(2) := Site.R5;
-   RM2(3) := Site.R4;
-   RM2(4) := Site.O4;
+--     RM(0) := Site.I2;
+--     RM(1) := Site.R2;
+--     RM(2) := Site.R1;
+--     RM(3) := Site.O1;
+--
+--     RM2(0) := Site.I6;
+--     RM2(1) := Site.R6;
+--     RM2(2) := Site.R5;
+--     RM2(3) := Site.R4;
+--     RM2(4) := Site.O4;
 
 --     Ada.Text_IO.Put_Line("Before Tri" & Integer'Image(RM2'Last));
 --     for I in RM2'Range loop
@@ -71,7 +71,7 @@ begin
          PO := Random(G);
       end loop;
 
-      T(PR).Follow(Site.Input_Places'Val(PI), Site.Output_Places'Val(PO + 12));
+      T(PR).Go(Site.Input_Places'Val(PI), Site.Output_Places'Val(PO + 12));
       delay 1.0;
    end loop;
 

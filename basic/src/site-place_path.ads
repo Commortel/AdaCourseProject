@@ -1,4 +1,4 @@
-private package Site.Place_Path is
+package Site.Place_Path is
    type Object is tagged private;
 
    function Open(P: in out Object; From: in Site.Input_Places; To: in Site.Output_Places) return Object;
@@ -9,6 +9,6 @@ private package Site.Place_Path is
 private
    type Elements is array(Natural range<>) of Site.Place_Names;
    type Object is tagged record
-      Path: Elements;
+      Path: Elements(0..18);
    end record;
 end;

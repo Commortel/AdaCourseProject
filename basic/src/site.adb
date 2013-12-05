@@ -68,6 +68,8 @@ package body Site is
       return P;
    end;
 
+
+
    function GetPointWithPlace(Place: in Place_Names) return Path.Point is
       P: Path.Point;
       L: Integer := Integer(Cos(30.0,360.0)*Float(D));

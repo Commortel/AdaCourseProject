@@ -21,13 +21,13 @@ procedure Test_Site is
 begin
    Reset(G);
 
-   Ada.Text_IO.Put_Line(Site.Place_Names'Image(Site.Way_In(Site.I2)));
-   Ada.Text_IO.Put_Line(Site.Place_Names'Image(Site.Next(Site.R6)));
-   Ada.Text_IO.Put_Line(Site.Place_Names'Image(Site.Opposite(Site.R6)));
-   Ada.Text_IO.Put_Line(Site.Place_Names'Image(Site.Previous(Site.R1)));
-   Ada.Text_IO.Put_Line(Site.Place_Names'Image(Site.Way_Out(Site.O5)));
-
-   Ada.Text_IO.Put_Line(Site.Place_Names'Image(Site.Next(Site.Way_In(Site.I1))));
+--     Ada.Text_IO.Put_Line(Site.Place_Names'Image(Site.Way_In(Site.I2)));
+--     Ada.Text_IO.Put_Line(Site.Place_Names'Image(Site.Next(Site.R6)));
+--     Ada.Text_IO.Put_Line(Site.Place_Names'Image(Site.Opposite(Site.R6)));
+--     Ada.Text_IO.Put_Line(Site.Place_Names'Image(Site.Previous(Site.R1)));
+--     Ada.Text_IO.Put_Line(Site.Place_Names'Image(Site.Way_Out(Site.O5)));
+--
+--     Ada.Text_IO.Put_Line(Site.Place_Names'Image(Site.Next(Site.Way_In(Site.I1))));
 
 --     RM(0) := Site.I2;
 --     RM(1) := Site.R2;
@@ -65,11 +65,11 @@ begin
       Ada.Text_IO.Put_Line("Robot");
       Ada.Text_IO.Put_Line(Place'Image(PR));
       Ada.Text_IO.Put_Line(Place'Image(PI));
-      Ada.Text_IO.Put_Line(Place'Image(PO));
 
       while PI = PO loop
          PO := Random(G);
       end loop;
+      Ada.Text_IO.Put_Line(Place'Image(PO));
 
       T(PR).Go(Site.Input_Places'Val(PI), Site.Output_Places'Val(PO + 12));
       delay 1.0;

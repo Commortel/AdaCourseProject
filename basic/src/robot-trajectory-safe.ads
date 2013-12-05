@@ -8,13 +8,10 @@ package Robot.Trajectory.Safe is
    procedure Open(T: in out T_Safe; From: in Site.Input_Places; To: in Site.Output_Places;  S: in Float);
    procedure Next(T: in out T_Safe);
    overriding
-   procedure Close(T: in T_Safe);
+   procedure Close(T: in out T_Safe);
 
 private
-   type Elements is array(Natural range<>) of Site.Place_Names;
    type T_Safe is new Robot.Trajectory.Object with record
-      From: Site.Input_Places;
-      To: Site.Output_Places;
-      --RM : Ressources.Request_Map();
+      It: Site.Place_Path.Object;
    end record;
 end;

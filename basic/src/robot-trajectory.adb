@@ -1,4 +1,3 @@
-with Adagraph;
 with Site;
 package body Robot.Trajectory is
    Route: Path.Object;
@@ -11,6 +10,7 @@ package body Robot.Trajectory is
       Site.Safely.Draw_Path(T.Route);
       T.Segment := 1;
       T.Speed := S;
+      T.K := 0.0;
    end;
 
    function X(T: in Object) return Float is (Path.X(T.Route,T.Segment,T.K));
@@ -29,7 +29,7 @@ package body Robot.Trajectory is
       T.Segment := T.Segment + 1;
    end;
    function At_End(T: in Object) return Boolean is (Boolean(Path.Segment_Count(T.Route) >= T.Segment));
-   procedure Close(T: in Object) is
+   procedure Close(T: in out Object) is
    begin
       null;
    end;

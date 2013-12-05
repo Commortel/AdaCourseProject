@@ -17,24 +17,24 @@ package body Generic_Ressource_Pool is
    begin
       Tri(R);
       for E of R loop
-         --if E in Ressource_Id then
-            Acquire(Obj,E);--.Ressources(Integer(Ressource_Id'Pos(E))).Acquire;
-         --end if;
+         Acquire(Obj,E);
       end loop;
    end;
    procedure Acquire(Obj: in out Object; R: in Ressource_Id) is
    begin
+      Ada.Text_IO.Put_Line("Acquire : " & Ressource_Id'Image(R));
       Obj.Ressources(Integer(Ressource_Id'Pos(R))).Acquire;
    end;
    procedure Release(Obj: in out Object; R: in out Request_Map) is
    begin
       Tri(R);
       for E of R loop
-         Release(Obj,E);--Obj.Ressources(Integer(Ressource_Id'Pos(E))).Release;
+         Release(Obj,E);
       end loop;
    end;
    procedure Release(Obj: in out Object; R: in Ressource_Id) is
    begin
+      Ada.Text_IO.Put_Line("Release : " & Ressource_Id'Image(R));
       Obj.Ressources(Integer(Ressource_Id'Pos(R))).Release;
    end;
    procedure Tri(R: in out Request_Map) is

@@ -3,7 +3,6 @@ use Adagraph;
 package body Robot is
    task body Object is
       Needed: Boolean := True;
-      dt: Duration := 0.05;
       T:  Robot.Trajectory.Safe.T_Safe;
       Speed: Float := 75.0;
    begin
@@ -15,6 +14,7 @@ package body Robot is
             while Robot.Trajectory.Safe.At_End(T) loop
                Robot.Trajectory.Safe.Next(T);
             end loop;
+            Robot.Trajectory.Safe.Close(T);
          or accept Shutdown do
                Needed := False;
             end Shutdown;

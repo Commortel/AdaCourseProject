@@ -8,7 +8,7 @@ private package Robot.Trajectory is
    function Y(T: in Object) return Float;
    procedure Next(T: in out Object; dt: in Duration);
    function At_End(T: in Object) return Boolean;
-   procedure Close(T: in Object);
+   procedure Close(T: in out Object);
 
 private
    type Object is tagged record

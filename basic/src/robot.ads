@@ -6,5 +6,4 @@ package Robot is
       entry Go(From: in Site.Input_Places; To: in Site.Output_Places);
       entry Shutdown;
    end;
-
 end Robot;

@@ -1,7 +1,7 @@
 with Ada.Text_IO, Adagraph, Path;
 package body Robot.Trajectory.Safe is
 
-   procedure Open (T: in out T_Safe; From: in Site.Input_Places; To: in Site.Output_Places;  S: in Float) is
+   procedure Open (T: in out T_Safe; From: in Site.Input_Places; To: in Site.Output_Places;  S: in Float; Color: Color_Type) is
       P: Path.Object := Site.Create_Path(From,To);
       RM: Ressources.Request_Map(0..(Path.GetSize(P) - 1));
       i: Integer := 0;
@@ -14,7 +14,7 @@ package body Robot.Trajectory.Safe is
          I := I + 1;
       end loop;
       Ressources.Acquire(Pool,RM);
-      Trajectory.Open(Trajectory.Object(T), From, To, S);
+      Trajectory.Open(Trajectory.Object(T), From, To, S, Color);
       Site.Place_Path.Reset(P => T.It);
    end;
    procedure Next (T: in out T_Safe) is

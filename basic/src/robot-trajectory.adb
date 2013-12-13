@@ -4,8 +4,9 @@ package body Robot.Trajectory is
    Radius: Integer := 5;
 
    function GetRoute return Path.Object is (Route);
-   procedure Open(T: in out Object; From: in Site.Input_Places; To: in Site.Output_Places; S: in Float) is
+   procedure Open(T: in out Object; From: in Site.Input_Places; To: in Site.Output_Places; S: in Float; Color: Color_Type) is
    begin
+      T.Color := Color;
       T.Route := Site.Create_Path(From, To);
       Site.Safely.Draw_Path(T.Route);
       T.Segment := 1;
@@ -20,7 +21,7 @@ package body Robot.Trajectory is
    begin
       dk := (T.Speed/Path.Segment_Length(T.Route,T.Segment))*Float(dt);
       for j in 1..Integer(1.0/dk) loop
-         Site.Safely.Draw_Robot(Path.Point'(X(T),Y(T)), White);
+         Site.Safely.Draw_Robot(Path.Point'(X(T),Y(T)), T.Color);
          delay dt;
          Site.Safely.Draw_Robot(Path.Point'(X(T),Y(T)), Black);
          T.K := T.K + dk;

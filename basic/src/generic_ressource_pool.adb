@@ -34,7 +34,7 @@ package body Generic_Ressource_Pool is
    end;
    procedure Release(Obj: in out Object; R: in Ressource_Id) is
    begin
-      Ada.Text_IO.Put_Line("Release : " & Ressource_Id'Image(R));
+     Ada.Text_IO.Put_Line("Release : " & Ressource_Id'Image(R));
       Obj.Ressources(Integer(Ressource_Id'Pos(R))).Release;
    end;
    procedure Tri(R: in out Request_Map) is

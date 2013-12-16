@@ -3,7 +3,7 @@ private package Robot.Trajectory is
    type Object is tagged private;
 
    function GetRoute return Path.Object;
-   procedure Open(T: in out Object; From: in Site.Input_Places; To: in Site.Output_Places; S: in Float; Color: Color_Type);
+   procedure Open(T: in out Object; From: in Site.Input_Places; To: in Site.Output_Places; S: in Float; Color: in Color_Type; ID: in Robot.Robot_ID);
    function X(T: in Object) return Float;
    function Y(T: in Object) return Float;
    procedure Next(T: in out Object; dt: in Duration);
@@ -12,7 +12,8 @@ private package Robot.Trajectory is
 
 private
    type Object is tagged record--(Color: Color_Type := Blue)
-      Color:Color_Type;
+      ID: Robot.Robot_ID;
+      Color: Color_Type;
       Route: Path.Object;
       Speed: Float;
       Segment: Positive;

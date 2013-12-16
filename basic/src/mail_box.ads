@@ -1,3 +1,4 @@
+with Parking;
 generic
    type Message is (<>);
 package Mail_Box is

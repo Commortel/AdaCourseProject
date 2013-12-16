@@ -1,8 +1,15 @@
-with Site, Robot, Parking, Remote_Adagraph;
+with Site, Parking, Remote_Adagraph, Robot;
+with Ada.Numerics.Discrete_Random;
+with Ada.Text_IO;
 use Remote_Adagraph;
 package Agency is
+   Park: Parking.Object(Size => 6);
    procedure Handle_Transfer (From : in Site.Input_Places; To: in Site.Output_Places);
    procedure Shutdown;
+--     task type Mission_Listener is
+--     end;
+--     protected type Cancel is
+--     end;
 private
    R1: aliased Robot.Object(Color => Cyan, ID => Robot.R1);
    R2: aliased Robot.Object(Color => Blue, ID => Robot.R2);

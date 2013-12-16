@@ -11,6 +11,7 @@ package body Site is
    Y: Integer := 300;
    H: Integer := 300;
    D: Integer := 50;
+   R_Radius: Integer := 10;
 
    function Way_In(To: in Input_Places) return Ring_Places is
    begin
@@ -94,6 +95,13 @@ package body Site is
       I4: Path.Point := Path.Point'(R4.X, R4.Y + Float(D));
       I5: Path.Point := Path.Point'(R5.X + Float(D)*Cos(45.0,360.0), R5.Y + Float(D)*Cos(45.0,360.0));
       I6: Path.Point := Path.Point'(R6.X + Float(D), R6.Y);
+
+      P1: Path.Point := Path.Point'(Float(X + H + 50), Float(Y - 75));
+      P2: Path.Point := Path.Point'(Float(X + H + 50), Float(Y - 45));
+      P3: Path.Point := Path.Point'(Float(X + H + 50), Float(Y - 15));
+      P4: Path.Point := Path.Point'(Float(X + H + 50), Float(Y + 15));
+      P5: Path.Point := Path.Point'(Float(X + H + 50), Float(Y + 45));
+      P6: Path.Point := Path.Point'(Float(X + H + 50), Float(Y + 75));
    begin
       case Place is
       when Site.I1 => P := I1;
@@ -115,6 +123,12 @@ package body Site is
       when Site.R5 => P := R5;
       when Site.R6 => P := R6;
       when Site.C => P := Path.Point'(Float(X),Float(Y));
+      when Site.P1 => P := P1;
+      when Site.P2 => P := P2;
+      when Site.P3 => P := P3;
+      when Site.P4 => P := P4;
+      when Site.P5 => P := P5;
+      when Site.P6 => P := P6;
       end case;
    return P;
    end;
@@ -204,6 +218,14 @@ package body Site is
          I4: Path.Point := Path.Point'(R4.X, R4.Y + Float(D));
          I5: Path.Point := Path.Point'(R5.X + Float(D)*Cos(45.0,360.0), R5.Y + Float(D)*Cos(45.0,360.0));
          I6: Path.Point := Path.Point'(R6.X + Float(D), R6.Y);
+
+         P1: Path.Point := Path.Point'(Float(X + H + 50), Float(Y - 75));
+         P2: Path.Point := Path.Point'(Float(X + H + 50), Float(Y - 45));
+         P3: Path.Point := Path.Point'(Float(X + H + 50), Float(Y - 15));
+         P4: Path.Point := Path.Point'(Float(X + H + 50), Float(Y + 15));
+         P5: Path.Point := Path.Point'(Float(X + H + 50), Float(Y + 45));
+         P6: Path.Point := Path.Point'(Float(X + H + 50), Float(Y + 75));
+
       begin
 
          Adagraph.Draw_Line(Integer(F1.X), Integer(F1.Y), Integer(G1.X), Integer(G1.Y));
@@ -237,29 +259,36 @@ package body Site is
          Adagraph.Draw_Line(Integer(D5.X), Integer(D5.Y), Integer(E5.X), Integer(E5.Y));
          Adagraph.Draw_Line(Integer(D6.X), Integer(D6.Y), Integer(E6.X), Integer(E6.Y));
 
-         Adagraph.Draw_Circle(Integer(R2.X), Integer(R2.Y),5);
-         Adagraph.Draw_Circle(Integer(R5.X), Integer(R5.Y),5);
-         Adagraph.Draw_Circle(Integer(R1.X), Integer(R1.Y),5);
-         Adagraph.Draw_Circle(Integer(R2.X), Integer(R2.Y),5);
-         Adagraph.Draw_Circle(Integer(R3.X), Integer(R3.Y),5);
-         Adagraph.Draw_Circle(Integer(R4.X), Integer(R4.Y),5);
-         Adagraph.Draw_Circle(Integer(R6.X), Integer(R6.Y),5);
+         Adagraph.Draw_Circle(Integer(R2.X), Integer(R2.Y),R_Radius);
+         Adagraph.Draw_Circle(Integer(R5.X), Integer(R5.Y),R_Radius);
+         Adagraph.Draw_Circle(Integer(R1.X), Integer(R1.Y),R_Radius);
+         Adagraph.Draw_Circle(Integer(R2.X), Integer(R2.Y),R_Radius);
+         Adagraph.Draw_Circle(Integer(R3.X), Integer(R3.Y),R_Radius);
+         Adagraph.Draw_Circle(Integer(R4.X), Integer(R4.Y),R_Radius);
+         Adagraph.Draw_Circle(Integer(R6.X), Integer(R6.Y),R_Radius);
 
-         Adagraph.Draw_Circle(Integer(O2.X), Integer(O2.Y),5);
-         Adagraph.Draw_Circle(Integer(O5.X), Integer(O5.Y),5);
-         Adagraph.Draw_Circle(Integer(O1.X), Integer(O1.Y),5);
-         Adagraph.Draw_Circle(Integer(O2.X), Integer(O2.Y),5);
-         Adagraph.Draw_Circle(Integer(O3.X), Integer(O3.Y),5);
-         Adagraph.Draw_Circle(Integer(O4.X), Integer(O4.Y),5);
-         Adagraph.Draw_Circle(Integer(O6.X), Integer(O6.Y),5);
+         Adagraph.Draw_Circle(Integer(O2.X), Integer(O2.Y),R_Radius);
+         Adagraph.Draw_Circle(Integer(O5.X), Integer(O5.Y),R_Radius);
+         Adagraph.Draw_Circle(Integer(O1.X), Integer(O1.Y),R_Radius);
+         Adagraph.Draw_Circle(Integer(O2.X), Integer(O2.Y),R_Radius);
+         Adagraph.Draw_Circle(Integer(O3.X), Integer(O3.Y),R_Radius);
+         Adagraph.Draw_Circle(Integer(O4.X), Integer(O4.Y),R_Radius);
+         Adagraph.Draw_Circle(Integer(O6.X), Integer(O6.Y),R_Radius);
 
-         Adagraph.Draw_Circle(Integer(I2.X), Integer(I2.Y),5);
-         Adagraph.Draw_Circle(Integer(I5.X), Integer(I5.Y),5);
-         Adagraph.Draw_Circle(Integer(I1.X), Integer(I1.Y),5);
-         Adagraph.Draw_Circle(Integer(I2.X), Integer(I2.Y),5);
-         Adagraph.Draw_Circle(Integer(I3.X), Integer(I3.Y),5);
-         Adagraph.Draw_Circle(Integer(I4.X), Integer(I4.Y),5);
-         Adagraph.Draw_Circle(Integer(I6.X), Integer(I6.Y),5);
+         Adagraph.Draw_Circle(Integer(I2.X), Integer(I2.Y),R_Radius);
+         Adagraph.Draw_Circle(Integer(I5.X), Integer(I5.Y),R_Radius);
+         Adagraph.Draw_Circle(Integer(I1.X), Integer(I1.Y),R_Radius);
+         Adagraph.Draw_Circle(Integer(I2.X), Integer(I2.Y),R_Radius);
+         Adagraph.Draw_Circle(Integer(I3.X), Integer(I3.Y),R_Radius);
+         Adagraph.Draw_Circle(Integer(I4.X), Integer(I4.Y),R_Radius);
+         Adagraph.Draw_Circle(Integer(I6.X), Integer(I6.Y),R_Radius);
+
+         Adagraph.Draw_Circle(Integer(P1.X), Integer(P1.Y), R_Radius, Cyan, Fill);
+         Adagraph.Draw_Circle(Integer(P2.X), Integer(P2.Y), R_Radius, Blue, Fill);
+         Adagraph.Draw_Circle(Integer(P3.X), Integer(P3.Y), R_Radius, Yellow, Fill);
+         Adagraph.Draw_Circle(Integer(P4.X), Integer(P4.Y), R_Radius, Green, Fill);
+         Adagraph.Draw_Circle(Integer(P5.X), Integer(P5.Y), R_Radius, Red, Fill);
+         Adagraph.Draw_Circle(Integer(P6.X), Integer(P6.Y), R_Radius, Brown, Fill);
       end;
       procedure Draw_Path(P: in Path.Object; Color: in Color_Type := Light_Green) is
       begin
@@ -267,11 +296,11 @@ package body Site is
       end;
       procedure Draw_Robot(P: in Path.Point; Color: in Color_Type := Light_Green) is
       begin
-         Adagraph.Draw_Circle(Integer(P.X), Integer(P.Y), 10, Color, Fill);
+         Adagraph.Draw_Circle(Integer(P.X), Integer(P.Y), R_Radius, Color, Fill);
       end;
       procedure Hide_Robot(P: in Path.Point) is
       begin
-         null;--R.Shutdown;
+         Adagraph.Draw_Circle(Integer(P.X), Integer(P.Y), R_Radius, Black, Fill);
       end;
    end;
 end;

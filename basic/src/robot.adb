@@ -9,7 +9,7 @@ package body Robot is
       loop
          select
             accept Go(From: in Site.Input_Places; To: in Site.Output_Places) do
-               Robot.Trajectory.Safe.Open(T, From, To, Speed, Object.Color);
+               Robot.Trajectory.Safe.Open(T, From, To, Speed, Object.Color, Object.ID);
             end Go;
             while Robot.Trajectory.Safe.At_End(T) loop
                Robot.Trajectory.Safe.Next(T);

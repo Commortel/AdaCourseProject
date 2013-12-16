@@ -4,11 +4,12 @@ package body Robot.Trajectory is
    Radius: Integer := 5;
 
    function GetRoute return Path.Object is (Route);
-   procedure Open(T: in out Object; From: in Site.Input_Places; To: in Site.Output_Places; S: in Float; Color: Color_Type) is
+   procedure Open(T: in out Object; From: in Site.Input_Places; To: in Site.Output_Places; S: in Float; Color: in Color_Type; ID: in Robot.Robot_ID) is
    begin
+      T.ID := ID;
       T.Color := Color;
       T.Route := Site.Create_Path(From, To);
-      Site.Safely.Draw_Path(T.Route);
+      Site.Safely.Draw_Path(T.Route, T.Color);
       T.Segment := 1;
       T.Speed := S;
       T.K := 0.0;

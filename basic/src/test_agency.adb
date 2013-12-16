@@ -18,13 +18,13 @@ begin
       PI := Random(G);
       PO := Random(G);
 
-      Ada.Text_IO.Put_Line("Path");
-      Ada.Text_IO.Put_Line(Place'Image(PI));
+      --Ada.Text_IO.Put_Line("Path");
+      --Ada.Text_IO.Put_Line(Place'Image(PI));
 
       while PI = PO loop
          PO := Random(G);
       end loop;
-      Ada.Text_IO.Put_Line(Place'Image(PO));
+      --Ada.Text_IO.Put_Line(Place'Image(PO));
 
       Agency.Handle_Transfer(Site.Input_Places'Val(PI), Site.Output_Places'Val(PO + 12));
       delay 1.0;
